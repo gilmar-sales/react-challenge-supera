@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Product from '../@types/Product'
+import ShopCartContext from '../contexts/ShopCartContext'
 
 import cardAddIcon from '../icons/cart-add-icon.svg'
+import cartRemoveIcon from '../icons/cart-remove-icon.svg'
 
 interface ProductCardProps {
 	product?: Product
@@ -10,11 +12,16 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = (props) => {
 	const [count, setCount] = useState(1)
+	const cartCtx = useContext(ShopCartContext)
 
 	return (
 		<div
-			className={`flex flex-col justify-between w-full h-full rounded-md border overflow-hidden transition-transform duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-105 ${
+			className={`flex flex-col justify-between w-full h-full rounded-md border overflow-hidden transition-transform duration-500 ease-in-out transform ${
 				props.loading && 'animate-pulse'
+			} ${
+				props.product &&
+				cartCtx.contains(props.product) &&
+				'-translate-y-1 scale-105'
 			}`}
 		>
 			<div>
@@ -55,21 +62,39 @@ const ProductCard: React.FC<ProductCardProps> = (props) => {
 					)}
 
 					{!props.loading ? (
-						<div className='flex'>
-							<input
-								className='h-10 w-14  border  rounded-none rounded-l-md px-2 text-black appearance-none'
-								type='number'
-								value={count}
-								min='0'
-								onChange={(event) => setCount(Number(event.target.value))}
-								onFocus={(event) => event.target.select()}
-							/>
-							<button className='flex h-10 items-center bg-blue-500 p-2 text-white rounded-none rounded-r-md hover:bg-blue-600'>
-								<img className='w-8' alt='' src={cardAddIcon} />
-							</button>
-						</div>
+						<>
+							{props.product && cartCtx.contains(props.product) ? (
+								<button
+									className='flex h-10 items-center bg-red-500 p-2 text-white rounded-md hover:bg-red-600'
+									onClick={() =>
+										props.product && cartCtx.popItem(props.product)
+									}
+								>
+									<img className='w-8' alt='' src={cartRemoveIcon} />
+								</button>
+							) : (
+								<div className='flex'>
+									<input
+										className='h-10 w-14  border  rounded-none rounded-l-md px-2 text-black appearance-none'
+										type='number'
+										value={count}
+										min='0'
+										onChange={(event) => setCount(Number(event.target.value))}
+										onFocus={(event) => event.target.select()}
+									/>
+									<button
+										className='flex h-10 items-center bg-blue-500 p-2 text-white rounded-none rounded-r-md hover:bg-blue-600'
+										onClick={() =>
+											props.product && cartCtx.pushItem(props.product, count)
+										}
+									>
+										<img className='w-8' alt='' src={cardAddIcon} />
+									</button>
+								</div>
+							)}
+						</>
 					) : (
-						<div className='bg-gray-400 rounded-md w-32 h-10' />
+						<div className='bg-gray-400 rounded-md w-28 h-10' />
 					)}
 				</div>
 			</div>
