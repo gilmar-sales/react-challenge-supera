@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 
-import GameCard from '../components/GameCard'
-import { Game } from '../@types/game'
+import ProductCard from '../components/ProductCard'
+import Product from '../@types/Product'
 
 export default function Home() {
-	const [games, setGames] = useState<Game[]>([])
+	const [games, setGames] = useState<Product[]>([])
 	const [loadingPage, setLoadingPage] = useState(true)
 
 	useEffect(() => {
@@ -28,12 +28,12 @@ export default function Home() {
 				{loadingPage
 					? [...Array(8)].map((_, index) => (
 							<div className='col-span-12 sm:col-span-4 md:col-span-3'>
-								<GameCard loading />
+								<ProductCard loading />
 							</div>
 					  ))
 					: games.map((game, index) => (
 							<div className='col-span-12 sm:col-span-4 md:col-span-3'>
-								<GameCard key={index} game={game} />
+								<ProductCard key={index} product={game} />
 							</div>
 					  ))}
 			</div>

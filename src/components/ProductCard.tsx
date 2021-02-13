@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
-import { Game } from '../@types/game'
+import Product from '../@types/Product'
 
 import cardAddIcon from '../icons/cart-add-icon.svg'
 
-interface GameCardProps {
-	game?: Game
+interface ProductCardProps {
+	product?: Product
 	loading?: boolean
 }
 
-const GameCard: React.FC<GameCardProps> = (props) => {
+const ProductCard: React.FC<ProductCardProps> = (props) => {
 	const [count, setCount] = useState(1)
 
 	return (
@@ -20,7 +20,7 @@ const GameCard: React.FC<GameCardProps> = (props) => {
 			<div>
 				{/* Card Title */}
 				<div className='text-center font-bold text-xl h-11 text-white p-2 bg-black'>
-					{!props.loading && props.game?.name}
+					{!props.loading && props.product?.name}
 				</div>
 				{/* Card Media */}
 				<div className='h-44 overflow-hidden'>
@@ -30,7 +30,7 @@ const GameCard: React.FC<GameCardProps> = (props) => {
 						<img
 							className='h-full mx-auto bg-cover'
 							alt='media'
-							src={`assets/${props.game?.image}`}
+							src={`assets/${props.product?.image}`}
 						/>
 					)}
 				</div>
@@ -41,7 +41,7 @@ const GameCard: React.FC<GameCardProps> = (props) => {
 					<div className='mx-auto mb-2 w-20 h-5 bg-gray-400' />
 				) : (
 					<div className='text-center text-lg mb-2 font-bold'>
-						{props.game?.price.toLocaleString('pt-BR', {
+						{props.product?.price.toLocaleString('pt-BR', {
 							style: 'currency',
 							currency: 'BRL',
 						})}
@@ -51,7 +51,7 @@ const GameCard: React.FC<GameCardProps> = (props) => {
 					{props.loading ? (
 						<div className='w-20 h-5 bg-gray-400' />
 					) : (
-						<label>Score: {props.game?.score}</label>
+						<label>Score: {props.product?.score}</label>
 					)}
 
 					{!props.loading ? (
@@ -77,4 +77,4 @@ const GameCard: React.FC<GameCardProps> = (props) => {
 	)
 }
 
-export default GameCard
+export default ProductCard
