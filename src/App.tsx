@@ -9,7 +9,7 @@ function App() {
 		<div className='App'>
 			<ShopCartProvider>
 				<NavBar />
-				<div className='max-w-screen-xl mt-16 mx-auto'>
+				<div className='max-w-screen-xl mt-20 mx-auto'>
 					<Routes />
 				</div>
 			</ShopCartProvider>
