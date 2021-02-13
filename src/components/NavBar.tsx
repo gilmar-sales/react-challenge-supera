@@ -1,8 +1,29 @@
-import React from 'react'
+import React, { HTMLAttributes, useContext } from 'react'
 
 import cartIcon from '../icons/cart-icon.svg'
+import Drawer from './Drawer'
+
+import ShopCartContext from '../contexts/ShopCartContext'
 
 export default function NavBar() {
+	const cartCtx = useContext(ShopCartContext)
+
+	const CartButton: React.FC<HTMLAttributes<{}>> = (props) => (
+		<button
+			className={`${props.className} h-12 w-12 relative flex justify-center items-center rounded-full bg-black text-blue-500`}
+			onClick={() => cartCtx.setOpen(!cartCtx.open)}
+		>
+			{/* Count */}
+			{cartCtx.items.length !== 0 && (
+				<div className='absolute top-0 left-0 h-6 w-6 rounded-full bg-red-500 text-white'>
+					{cartCtx.items.length}
+				</div>
+			)}
+			{/* Icon */}
+			<img className='h-8 w-8' alt='Cart' src={cartIcon} />
+		</button>
+	)
+
 	return (
 		<nav
 			className={
@@ -19,10 +40,15 @@ export default function NavBar() {
 						a pseudo gamming ecommerce
 					</small>
 				</div>
-				<button className='h-12 w-12 flex justify-center items-center rounded-full bg-black text-blue-500'>
-					<img className='h-8 w-8' alt='Cart' src={cartIcon} />
-				</button>
+				<CartButton />
 			</div>
+			<Drawer open={cartCtx.open} setOpen={cartCtx.setOpen}>
+				<div className='flex justify-between items-center'>
+					<h1 className='text-2xl'>Shop Cart</h1>
+					<CartButton className='border' />
+				</div>
+				<div className='border-b my-4 w-full' />
+			</Drawer>
 		</nav>
 	)
 }
