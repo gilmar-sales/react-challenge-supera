@@ -7,7 +7,7 @@ function App() {
 	return (
 		<div className='App'>
 			<NavBar />
-			<div className='mt-16'>
+			<div className='max-w-screen-xl mt-16 mx-auto'>
 				<Routes />
 			</div>
 		</div>
