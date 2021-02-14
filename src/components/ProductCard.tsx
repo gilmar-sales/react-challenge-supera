@@ -78,7 +78,7 @@ const ProductCard: React.FC<ProductCardProps> = (props) => {
 										className='h-10 w-14  border  rounded-none rounded-l-md px-2 text-black appearance-none'
 										type='number'
 										value={count}
-										min='0'
+										min='1'
 										onChange={(event) => setCount(Number(event.target.value))}
 										onFocus={(event) => event.target.select()}
 									/>
