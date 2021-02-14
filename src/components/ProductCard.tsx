@@ -83,6 +83,7 @@ const ProductCard: React.FC<ProductCardProps> = (props) => {
 										onFocus={(event) => event.target.select()}
 									/>
 									<button
+										data-testid={props.product?.name}
 										className='flex h-10 items-center bg-blue-500 p-2 text-white rounded-none rounded-r-md hover:bg-blue-600'
 										onClick={() =>
 											props.product && cartCtx.pushItem(props.product, count)
