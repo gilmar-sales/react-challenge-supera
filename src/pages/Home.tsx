@@ -6,6 +6,7 @@ import ProductCard from '../components/ProductCard'
 import Product from '../@types/Product'
 
 import orderItems from '../utils/orderItems'
+import { act } from 'react-dom/test-utils'
 
 export default function Home() {
 	const [games, setGames] = useState<Product[]>([])
@@ -22,17 +23,23 @@ export default function Home() {
 	}, [order, loadingPage])
 
 	useEffect(() => {
-		fetch('products.json', {
-			headers: {
-				'Content-Type': 'application/json',
-				Accept: 'application/json',
-			},
-		})
-			.then((response) => response.json())
-			.then((products) => {
-				setGames(products)
+		const fetchProducts = async () => {
+			const response = await fetch('products.json', {
+				headers: {
+					'Content-Type': 'application/json',
+					Accept: 'application/json',
+				},
+			})
+
+			const data = await response.json()
+			act(() => {
+				/* fire events that update state */
+				setGames(data)
 				setLoadingPage(false)
 			})
+		}
+
+		fetchProducts()
 	}, [])
 
 	return (
@@ -63,6 +70,7 @@ export default function Home() {
 				{loadingPage
 					? [...Array(8)].map((_, index) => (
 							<div
+								data-testid='loading_card'
 								key={index}
 								className='col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3'
 							>
