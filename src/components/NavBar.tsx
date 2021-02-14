@@ -1,6 +1,5 @@
 import React from 'react'
 
-import Drawer from './Drawer'
 import { Link } from 'react-router-dom'
 import CartButton from './CartButtom'
 
@@ -23,13 +22,6 @@ export default function NavBar() {
 				</div>
 				<CartButton />
 			</div>
-			<Drawer open={cartCtx.open} setOpen={cartCtx.setOpen}>
-				<div className='flex justify-between items-center'>
-					<h1 className='text-2xl'>Shop Cart</h1>
-					<CartButton className='border' />
-				</div>
-				<div className='border-b my-4 w-full' />
-			</Drawer>
 		</nav>
 	)
 }
