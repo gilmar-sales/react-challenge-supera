@@ -64,7 +64,7 @@ export default function Home() {
 					? [...Array(8)].map((_, index) => (
 							<div
 								key={index}
-								className='col-span-12 sm:col-span-4 md:col-span-3'
+								className='col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3'
 							>
 								<ProductCard loading />
 							</div>
@@ -72,7 +72,7 @@ export default function Home() {
 					: games.map((game, index) => (
 							<div
 								key={index}
-								className='col-span-12 sm:col-span-4 md:col-span-3'
+								className='col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3'
 							>
 								<ProductCard product={game} />
 							</div>
