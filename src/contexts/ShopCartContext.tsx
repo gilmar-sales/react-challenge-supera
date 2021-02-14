@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 
 import usePersistedState from '../utils/usePersistedState'
 
@@ -10,6 +10,8 @@ interface ContextProps {
 	setOpen: React.Dispatch<React.SetStateAction<boolean>>
 	items: CartItem[]
 	setItems: React.Dispatch<React.SetStateAction<CartItem[]>>
+	subtotal: number
+	shipping: number
 	contains: (product: Product) => boolean
 	pushItem: (product: Product, count: number) => void
 	popItem: (product: Product) => void
@@ -21,6 +23,8 @@ const ShopCartContext = createContext<ContextProps>({} as ContextProps)
 export const ShopCartProvider: React.FC = ({ children }) => {
 	const [open, setOpen] = useState(false)
 	const [items, setItems] = usePersistedState<CartItem[]>('shopcart', [])
+	const [subtotal, setSubtotal] = useState(0)
+	const [shipping, setShipping] = useState(0)
 
 	const contains: (product: Product) => boolean = (product) => {
 		return items.find((element) => element.id === product.id) !== undefined
@@ -43,10 +47,22 @@ export const ShopCartProvider: React.FC = ({ children }) => {
 		const item = items.find((element) => element.id === product.id)
 
 		if (item) {
-			item.count = count
+			item.count = count > 1 ? count : 1
 			setItems([...items])
 		}
 	}
+
+	useEffect(() => {
+		let _subtotal = 0
+		let _shipping = 0
+		items.forEach((item) => {
+			_subtotal += item.price * item.count
+			_shipping += 10 * item.count
+		})
+
+		setSubtotal(_subtotal)
+		setShipping(_subtotal >= 250 ? 0 : _shipping)
+	}, [items])
 
 	return (
 		<ShopCartContext.Provider
@@ -55,6 +71,8 @@ export const ShopCartProvider: React.FC = ({ children }) => {
 				setOpen,
 				items,
 				setItems,
+				subtotal,
+				shipping,
 				contains,
 				pushItem,
 				popItem,
