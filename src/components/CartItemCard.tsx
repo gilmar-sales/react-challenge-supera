@@ -30,7 +30,7 @@ const CartItemCard: React.FC<CartItemCardProps> = (props) => {
 				</label>
 				<div className='flex justify-between items-end'>
 					<input
-						className='bg-black border appearance-none pl-2 w-16'
+						className='bg-black border appearance-none rounded-md pl-2 w-16'
 						value={props.cartItem.count}
 						type='number'
 						min='1'
