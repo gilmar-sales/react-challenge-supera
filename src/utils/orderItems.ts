@@ -3,7 +3,14 @@ import Product from '../@types/Product'
 
 export default function orderItems(
 	items: CartItem[] | Product[],
-	order: string
+	order:
+		| string
+		| 'name_asc'
+		| 'name_desc'
+		| 'price_low'
+		| 'price_high'
+		| 'score_low'
+		| 'score_high'
 ) {
 	switch (order) {
 		case 'name_asc':
