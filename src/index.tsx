@@ -4,9 +4,13 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 
+import { ShopCartProvider } from './contexts/ShopCartContext'
+
 ReactDOM.render(
 	<React.StrictMode>
-		<App />
+		<ShopCartProvider>
+			<App />
+		</ShopCartProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
 )

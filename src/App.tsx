@@ -1,18 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
-import NavBar from './components/NavBar'
-import { ShopCartProvider } from './contexts/ShopCartContext'
+import ShopCartContext from './contexts/ShopCartContext'
 import Routes from './Routes'
 
 function App() {
+	const cartCtx = useContext(ShopCartContext)
 	return (
 		<div className='App'>
-			<ShopCartProvider>
-				<NavBar />
+			<div className={cartCtx.open ? 'overflow-hidden h-screen w-screen' : ''}>
 				<div className='max-w-screen-xl mt-20 mx-auto'>
 					<Routes />
 				</div>
-			</ShopCartProvider>
+			</div>
 		</div>
 	)
 }
