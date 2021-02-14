@@ -16,7 +16,7 @@ const Drawer: React.FC<DrawerProps> = (props) => {
 				className={` flex-grow bg-black bg-opacity-50`}
 				onClick={() => props.setOpen(false)}
 			></div>
-			<div className={`h-screen w-96 bg-black text-white  p-4`}>
+			<div className={`w-96 overflow-auto bg-black text-white p-4`}>
 				{props.children}
 			</div>
 		</div>
