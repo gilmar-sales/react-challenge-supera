@@ -27,13 +27,19 @@ export default function Home() {
 			<div className='grid grid-cols-12 gap-6'>
 				{loadingPage
 					? [...Array(8)].map((_, index) => (
-							<div className='col-span-12 sm:col-span-4 md:col-span-3'>
+							<div
+								key={index}
+								className='col-span-12 sm:col-span-4 md:col-span-3'
+							>
 								<ProductCard loading />
 							</div>
 					  ))
 					: games.map((game, index) => (
-							<div className='col-span-12 sm:col-span-4 md:col-span-3'>
-								<ProductCard key={index} product={game} />
+							<div
+								key={index}
+								className='col-span-12 sm:col-span-4 md:col-span-3'
+							>
+								<ProductCard product={game} />
 							</div>
 					  ))}
 			</div>
