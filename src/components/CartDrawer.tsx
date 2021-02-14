@@ -24,24 +24,30 @@ export default function CartDrawer() {
 			</div>
 			<div className='flex justify-between'>
 				<label>Subtotal:</label>
-				{cartCtx.subtotal.toLocaleString('pt-BR', {
-					style: 'currency',
-					currency: 'BRL',
-				})}
+				<span data-testid='subtotal'>
+					{cartCtx.subtotal.toLocaleString('pt-BR', {
+						style: 'currency',
+						currency: 'BRL',
+					})}
+				</span>
 			</div>
 			<div className='flex justify-between'>
 				<label>Estimated Shipping:</label>
-				{cartCtx.shipping.toLocaleString('pt-BR', {
-					style: 'currency',
-					currency: 'BRL',
-				})}
+				<span data-testid='shipping-cost'>
+					{cartCtx.shipping.toLocaleString('pt-BR', {
+						style: 'currency',
+						currency: 'BRL',
+					})}
+				</span>
 			</div>
 			<div className='flex justify-between mb-3'>
 				<label>Total:</label>
-				{(cartCtx.subtotal + cartCtx.shipping).toLocaleString('pt-BR', {
-					style: 'currency',
-					currency: 'BRL',
-				})}
+				<span data-testid='total'>
+					{(cartCtx.subtotal + cartCtx.shipping).toLocaleString('pt-BR', {
+						style: 'currency',
+						currency: 'BRL',
+					})}
+				</span>
 			</div>
 			<button className='w-full bg-white text-center text-black text-xl font-bold p-4 hover:bg-blue-600 rounded-md'>
 				Proceed to checkout
